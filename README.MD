@@ -6,9 +6,9 @@ Teensy Browser attempts to maintain a balance between functionality and resource
 
 2. All other processes follow unix philosophy including
 
-     a. Downloads of all resources are handled by "get"
-     b. Initial (non-js) parsing to DOM is handled by "parse"
-     c. Complex resource handling (video, animation, etc...) is handled by "splat"
+     * Downloads of all resources are handled by "get"
+     * Initial (non-js) parsing to DOM is handled by "parse"
+     * Complex resource handling (video, animation, etc...) is handled by "splat"
 
 ## Design Decisions ##
 
