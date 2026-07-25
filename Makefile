@@ -2,18 +2,21 @@
 include config.mk
 
 # Compilation Targets
-all: engine helpers
+all: teensy helpers
 
-engine: src/engine/main.c src/engine/js_bindings.c src/engine/ui_render.c
-	$(CC) $(CFLAGS) -Iinclude -Ilibs/lvgl -Ilibs/quickjs $^ -o bin/browser_engine $(LDFLAGS) -lquickjs -llvgl
+teensy: src/main.c src/js_bindings.c src/ui_render.c
+	$(CC) $(CFLAGS) -Iinclude -Ilibs/lvgl -Ilibs/quickjs $^ -o bin/teensy $(LDFLAGS) -lquickjs -llvgl
 
-helpers: webp_worker parser_worker
+helpers: splat parse get
 
-webp_worker: src/helpers/worker_webp.c
-	$(MUSL_CC) -static -O3 -Iinclude $^ -o bin/static_webp_worker -lwebp
+splat: src/splat.c
+	$(MUSL_CC) -static -Os -Iinclude $^ -o bin/splat -lwebp
 
-parser_worker: src/helpers/html_parser.c
-	$(MUSL_CC) -static -O2 -Iinclude $^ -o bin/static_html_parser
+parse: src/parse.c
+	$(MUSL_CC) -static -Os -Iinclude $^ -o bin/parse
+
+get: src/get.c
+	$(MUSL_CC) -static -Os -Iinclude $^ -o bin/get
 
 clean:
 	rm -rf bin/*
